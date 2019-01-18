@@ -1,0 +1,19 @@
+{
+    "Obstacles Height": (Integer) Code will divide screen height with this this number, and sets it to the obstacle height.
+                        for example, 2 - will create obstacles with half screen height
+    "Obstacles Width": (Integer) Consider that player width is around 100 px, so obstacle with 200 px width  is pretty small.
+                        400 is normal.
+    "Obstacle Gap": (Integer) The gap between obstacles. Again, consider player width. 400 is normal.
+    "Obstacles Speed Increment": (Integer) The obstacles speed increment in constant routine.
+                                 2 consider pretty fast.
+    "Obstacles Initial Speed": (Integer) The obstacles initial speed - will remain the same if speed increment is 0.
+                                4 consider normal.
+    "Random Height": (Integer) Make random height for each obstacle. difficulty between 0 - 10 ,
+    "Color": color in integer - will be replace with relevant image
+}
+
+
+
+!
+*** Don't forget to update NUMBERS_OF_LEVELS in Constants ***
+!

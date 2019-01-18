@@ -1,0 +1,14 @@
+{
+    "missions":
+    [
+      ["sky_jump", "11", 2, "","Reach 2 sky jump in level 11: "],
+      ["sky_jump", "12", 3,"","Reach 2 sky jump in level 12: "],
+      ["sky_jump", "13", 4,"","Reach 2 sky jump in level 13: "],
+      ["sky_jump", "21", 3,"continue","Reach 3 continues sky jump in level 21: "],
+      ["sky_jump", "31", 2,"","Reach 2 sky jump in level 31: "],
+      ["sky_jump", "41", 2,"","Reach 2 sky jump in level 41: "],
+      ["ended_missions", "100", 1,"","No more missions!!!"],
+      ["ended_missions", "100", 1,"","No more missions!!!"],
+      ["ended_missions", "100", 1,"","No more missions!!!"]
+    ]
+}

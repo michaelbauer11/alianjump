@@ -1,0 +1,13 @@
+{
+  "Obstacles Height": 3,
+  "Obstacles Width": 400,
+  "Obstacle Gap": 400,
+  "Obstacles Speed Increment": 0,
+  "Obstacles Initial Speed": 5,
+  "Random Height": 0,
+  "Random Width": 5,
+  "Time For Level": 30000,
+  "Tile Bitmap Id": 2131165298,
+  "BG Bitmap Id": 2131165277,
+  "Color": -16711936
+}
