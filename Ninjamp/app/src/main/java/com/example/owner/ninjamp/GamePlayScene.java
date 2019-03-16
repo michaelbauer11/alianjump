@@ -169,7 +169,7 @@ public class GamePlayScene implements Scene{
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
-                if(!player.isDead() && gameNotPaused && !player.isInWormHall()){
+                if(!player.isDead() && gameNotPaused ){
                     onTouchForPlayer.setPressed(false);
                     if(Math.abs(event.getY()-touchStartsYValue) < 200){
                         justLeftTouch = true;
