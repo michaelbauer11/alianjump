@@ -1,5 +1,7 @@
 package com.example.owner.ninjamp;
 
+
+
 public enum UpgradeType {
     WormHole    (3,3,3,3000) // speed of the upgrade on the canvas(x,y), collect amount needs to activate upgrade
     ;
@@ -19,7 +21,7 @@ public enum UpgradeType {
     public void activateUpgrade(UpgradeType upgradeType, Player player){
         switch (upgradeType){
             case WormHole:
-                player.activateWormHole(upgradeType.upgradeActiveTime, true, true);
+                player.activateWormHole(upgradeType.upgradeActiveTime, true);
             default:
                 System.out.print("couldnt find enum");
 

@@ -9,6 +9,7 @@ public class Animation {
     private Bitmap[] frames;
     private int frameIndex;
     private boolean playedOnce = false;
+    private boolean doneRunOnce = false;
     private boolean isPlaying = false;
     private float frameTime;
     private long lastFrame;
@@ -17,10 +18,13 @@ public class Animation {
 
     public void setPlayedOnce(boolean playedOnce){
         this.playedOnce = playedOnce;
+        doneRunOnce = false;
     }
     public boolean isPlaying() {
         return isPlaying;
     }
+    public boolean isDoneRunOnce(){ return doneRunOnce; }
+
 
     public void play() {
         isPlaying = true;
@@ -59,6 +63,7 @@ public class Animation {
                 if(System.currentTimeMillis() - lastFrame > frameTime*1000) frameIndex = 0;
                 if (playedOnce){
                     stop();
+                    doneRunOnce = true;
                     frameIndex = frames.length - 1;
                 }
             }

@@ -11,6 +11,10 @@ public class AnimationManager {
         this.animations = animations;
     }
 
+    public Animation getActiveAnimation(){
+        return this.animations[currentAnimationIndex];
+    }
+
     public void playAnim(int animToPlayIndex) {
         if(animToPlayIndex != currentAnimationIndex) {
             animations[currentAnimationIndex].stop();
