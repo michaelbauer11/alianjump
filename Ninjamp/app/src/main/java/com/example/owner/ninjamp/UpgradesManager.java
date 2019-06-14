@@ -44,7 +44,7 @@ public class UpgradesManager {
             }
         }
 
-        for(index = 0 ; index < upgrades.size() ; index++) { // can't iterate over a list and remove object from her, got to do it with index
+        for(index = 0 ; index < upgrades.size() ; index++) { // can't iterate over a list and remove object from it, got to do it with index
             tempUpgrade = upgrades.get(index);
 
             if (player.getRectangle().contains(tempUpgrade.getRect().centerX(),tempUpgrade.getRect().centerY())) {

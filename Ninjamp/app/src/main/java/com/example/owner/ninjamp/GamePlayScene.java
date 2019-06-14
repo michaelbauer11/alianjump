@@ -44,8 +44,8 @@ public class GamePlayScene implements Scene{
    private UpgradesManager upgradesManager;
     GamePlayScene(){
         obstacleManager = new ObstacleManager();
-        player = new Player(new Rect(0, 0, PUBLIC_VAR.PLAYER_SIZE, PUBLIC_VAR.PLAYER_SIZE), this);
         playerPoint = new Point(PUBLIC_VAR.SCREEN_WIDTH /8, PUBLIC_VAR.SCREEN_HEIGHT/4);
+        player = new Player(new Rect(0, 0, PUBLIC_VAR.PLAYER_SIZE, PUBLIC_VAR.PLAYER_SIZE), this);
         player.setPosition(playerPoint);
         onTouchForPlayer = new OnTouchForPlayer(player.getRectangle());
         gameOverPaint.setAlpha(5);
@@ -147,7 +147,7 @@ public class GamePlayScene implements Scene{
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                if(!player.isDead()) {
+                if(!player.isDead() && !player.isInWormHall()) {
                     if(gameNotPaused){
                         onTouchForPlayer.setTouchStart();
                         touchStartsYValue = event.getY();
@@ -169,7 +169,7 @@ public class GamePlayScene implements Scene{
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
-                if(!player.isDead() && gameNotPaused){
+                if(!player.isDead() && gameNotPaused ){
                     onTouchForPlayer.setPressed(false);
                     if(Math.abs(event.getY()-touchStartsYValue) < 200){
                         justLeftTouch = true;

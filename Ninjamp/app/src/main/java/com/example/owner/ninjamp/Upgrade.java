@@ -43,9 +43,9 @@ public class Upgrade implements GameObject {
     public void activateUpgrade(Player player){
         switch (upgradeType){
             case WormHole:
-                player.activateWormHole(upgradeType.upgradeActiveTime, true, true);
+                player.activateWormHole(upgradeType.upgradeActiveTime, true);
             default:
-                System.out.print("couldnt find enum");
+                System.out.print("couldn't find enum for upgrade activation");
         }
     }
 }

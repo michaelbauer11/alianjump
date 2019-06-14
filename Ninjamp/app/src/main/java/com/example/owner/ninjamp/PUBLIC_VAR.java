@@ -48,4 +48,7 @@ public class PUBLIC_VAR {
     // Upgrade rect size
     final public static int upgradeSize = 50;
 
+    // WormHole minimum activation time
+    final public static int MIN_WORM_HOLE_ACTIVATION_TIME = 700;
+
 }

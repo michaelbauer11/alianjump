@@ -26,9 +26,9 @@ public class Player implements GameObject {
     private double velocityY = 0;
     private boolean dead;
     private boolean onAir = false;
+
+    private WormHole wormHole;
     private boolean inWormHall;
-    private long wormHallStartingTime;
-    private long wormHallActivateTime;
     final private Point wormHallPointForPlayer = new Point(100,-200);
 
 
@@ -49,7 +49,10 @@ public class Player implements GameObject {
     private Animation run;
     private Animation landing;
 
+    //private Animation outofwormHole;
+
     private AnimationManager animationManager;
+
     /**
      * Constructor
      * @param rectangle - player rect
@@ -60,6 +63,9 @@ public class Player implements GameObject {
         dead = true;
         this.gamePlayScene = gamePlayScene;
         this.obstacleManager = gamePlayScene.getObstacleManager();
+
+        this.setPosition(gamePlayScene.playerPoint);
+        this.wormHole = new WormHole(new Rect(rectangle));
 
         rightRect = new Rect(rectangle.right - SIDE_RECT_WIDTH/2  ,rectangle.centerY() - SIDE_RECT_HEIGHT/2,rectangle.right + SIDE_RECT_WIDTH/2,rectangle.centerY()+SIDE_RECT_HEIGHT/2);
         bottomRect = new Rect(this.rectangle.centerX() - BOTTOM_RECT_WIDTH/2, this.rectangle.bottom - BOTTOM_RECT_HEIGHT, this.rectangle.centerX() + BOTTOM_RECT_WIDTH/2, this.rectangle.bottom);
@@ -81,12 +87,24 @@ public class Player implements GameObject {
         Bitmap landing1 = ConstantsFunc.decodeSampledBitmapFromResource(resourcesForBitMap, R.drawable.jmp4, PUBLIC_VAR.PLAYER_SIZE, PUBLIC_VAR.PLAYER_SIZE);
         this.landing = new Animation(new Bitmap[]{landing1}, 0.3f);
 
-        animationManager = new AnimationManager(new Animation[]{this.jump, this.idle, this.landing});
+        /*int wormholeSize = wormhole.width(); // height and width are equals
+        Bitmap wormhole1 = ConstantsFunc.decodeSampledBitmapFromResource(resourcesForBitMap, R.drawable.wormhole1, wormholeSize, wormholeSize);
+        Bitmap wormhole2 = ConstantsFunc.decodeSampledBitmapFromResource(resourcesForBitMap, R.drawable.wormhole2, wormholeSize, wormholeSize);
+        Bitmap wormhole3 = ConstantsFunc.decodeSampledBitmapFromResource(resourcesForBitMap, R.drawable.wormhole3, wormholeSize, wormholeSize);
+        Bitmap wormhole4 = ConstantsFunc.decodeSampledBitmapFromResource(resourcesForBitMap, R.drawable.wormhole4, wormholeSize, wormholeSize);
+        Bitmap wormhole5 = ConstantsFunc.decodeSampledBitmapFromResource(resourcesForBitMap, R.drawable.wormhole5, wormholeSize, wormholeSize);
+        //this.wormHole = new Animation(new Bitmap[]{wormhole1, wormhole2, wormhole3, wormhole4, wormhole5}, 0.5f);
+        */
+        //this.outofwormHole = new Animation(new Bitmap[]{wormhole1, wormhole2, wormhole3, wormhole4, wormhole5, jump2,jump3}, 0.4f);
+
+        animationManager = new AnimationManager(new Animation[]{this.jump, this.idle, this.landing });// , this.wormHole, this.outofwormHole});
     }
 
     public Rect getRectangle(){
         return rectangle;
     }
+
+    public boolean isInWormHall(){ return this.inWormHall; }
 
     public void setPosition(Point point){
         this.rectangle.set(point.x - rectangle.width()/2,point.y - rectangle.height()/2,point.x + rectangle.width()/2, point.y + rectangle.height()/2);
@@ -97,8 +115,7 @@ public class Player implements GameObject {
         this.obstacleManager = obstacleManager;
         this.rectangle.set(point.x - rectangle.width()/2,point.y - rectangle.height()/2,point.x + rectangle.width()/2, point.y + rectangle.height()/2);
         this.onAir = false;
-        this.inWormHall = false;
-        activateWormHole(500, false,true);
+        activateWormHole(PUBLIC_VAR.MIN_WORM_HOLE_ACTIVATION_TIME, false);
     }
 
     private void increaseX(float x){
@@ -199,27 +216,39 @@ public class Player implements GameObject {
         else velocityY += PUBLIC_VAR.GRAVITY;
 
         // update player position according to its velocity
-        if(!inWormHall) rectangle.set((int)Math.round(rectangle.left + velocityX) ,(int)Math.round(rectangle.top + velocityY), (int)Math.round(rectangle.right + velocityX), (int)Math.round(rectangle.bottom + velocityY));
+        if(!inWormHall)
+            rectangle.set((int)Math.round(rectangle.left + velocityX), (int)Math.round(rectangle.top + velocityY),
+                    (int)Math.round(rectangle.right + velocityX), (int)Math.round(rectangle.bottom + velocityY));
         else {
-            if (System.currentTimeMillis() - wormHallStartingTime > wormHallActivateTime) {
+            if (this.wormHole.isWormHoleExist()) {
+                setPosition(wormHallPointForPlayer);
+                wormHole.update();
+            } else{
                 setPosition(gamePlayScene.playerPoint);
-                inWormHall = false;
                 this.zeroVelocity();
-            } else setPosition(wormHallPointForPlayer);
+                inWormHall = false;
+            }
         }
         animationManager.update();
     }
 
 
+    void activateWormHole(long activateTime, boolean isDual){
+            this.inWormHall = true;
 
-    public void activateWormHole(long activateTime, boolean activateStartWormHole, boolean activateEndWormHole){
-        wormHallActivateTime = activateTime;
-        this.inWormHall = true;
-        wormHallStartingTime = System.currentTimeMillis();
+        if(isDual){
+            this.wormHole.setWormHoleRect(rectangle);
+            this.wormHole.activateDualWormHole(activateTime);
+        } else{
+            this.wormHole.activateOutComeWormHole(activateTime);
+        }
+        // System.out.println("Worm hole activated");
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        animationManager.draw(canvas, rectangle);
+    public void draw(Canvas canvas)
+    {
+        if( !this.inWormHall ) animationManager.draw(canvas, rectangle);
+        else wormHole.draw(canvas);
     }
 }
