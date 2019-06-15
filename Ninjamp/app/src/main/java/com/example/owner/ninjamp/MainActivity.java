@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 
         Intent intent = new Intent( MainActivity.this, Main2Activity.class);
         startActivity(intent, null); // startActivity allow you to move
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
-        System.out.println("end cleaning.....");
         }
 }
