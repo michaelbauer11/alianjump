@@ -48,6 +48,7 @@ public class Main2Activity extends AppCompatActivity {
         PUBLIC_VAR.ACTIVE_LEVEL_NAME = "level" + String.valueOf(level*10+1);
         Intent intent = new Intent( Main2Activity.this, MainActivity.class);
         startActivity(intent); // startActivity allow you to move
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
 }
