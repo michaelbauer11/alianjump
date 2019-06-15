@@ -42,6 +42,8 @@ public class GamePlayScene implements Scene{
 
    private MiniMissionChecker miniMissionChecker;
    private UpgradesManager upgradesManager;
+    private MisslesManager misslesManager;
+
     GamePlayScene(){
         obstacleManager = new ObstacleManager();
         playerPoint = new Point(PUBLIC_VAR.SCREEN_WIDTH /8, PUBLIC_VAR.SCREEN_HEIGHT/4);
@@ -55,6 +57,7 @@ public class GamePlayScene implements Scene{
 
         // Upgrades Manager
         upgradesManager = new UpgradesManager(player);
+        misslesManager = new MisslesManager(player);
 
         generalRectBackground = ConstantsFunc.decodeSampledBitmapFromResource(PUBLIC_VAR.CURRENT_CONTEXT.getResources(), R.drawable.game_over_background, generalRect.width(), generalRect.height());
         homeBitmap = ConstantsFunc.decodeSampledBitmapFromResource(PUBLIC_VAR.CURRENT_CONTEXT.getResources(), R.drawable.game_over_home, homeRect.width(), homeRect.height());
@@ -71,6 +74,7 @@ public class GamePlayScene implements Scene{
         if(!miniMissionChecker.getIsGameSceneRunningInMiniMission()) miniMissionChecker.start();
         obstacleManager.resetObstaclesManager();
         upgradesManager.restart();
+        misslesManager.restart();
         score = 0;
         gameOverPaint.setAlpha(5);
         player.setResetForPlayer(obstacleManager,playerPoint);
@@ -88,6 +92,7 @@ public class GamePlayScene implements Scene{
                 obstacleManager.update(this);
                 player.update();
                 upgradesManager.update();
+                misslesManager.update();
             }
         }
         else{
@@ -123,6 +128,7 @@ public class GamePlayScene implements Scene{
         onTouchForPlayer.draw(canvas);
         player.draw(canvas);
         upgradesManager.draw(canvas);
+        misslesManager.draw(canvas);
         canvas.drawText("score : " + String.valueOf(score), PUBLIC_VAR.SCREEN_WIDTH/15, PUBLIC_VAR.SCREEN_HEIGHT/15, PUBLIC_VAR.textPaint);
         if(player.isDead()){
             if(gameOverPaint.getAlpha() < 255) gameOverPaint.setAlpha(gameOverPaint.getAlpha()+10);
