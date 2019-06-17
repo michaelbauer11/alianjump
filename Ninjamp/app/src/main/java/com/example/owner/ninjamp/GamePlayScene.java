@@ -40,9 +40,10 @@ public class GamePlayScene implements Scene{
 
     private Paint pausePaint = new Paint();
 
-   private MiniMissionChecker miniMissionChecker;
-   private UpgradesManager upgradesManager;
+    private MiniMissionChecker miniMissionChecker;
+    private UpgradesManager upgradesManager;
     private MisslesManager misslesManager;
+    private MeteoritManager meteoritManager;
 
     GamePlayScene(){
         obstacleManager = new ObstacleManager();
@@ -58,6 +59,7 @@ public class GamePlayScene implements Scene{
         // Upgrades Manager
         upgradesManager = new UpgradesManager(player);
         misslesManager = new MisslesManager(player);
+        meteoritManager = new MeteoritManager(player);
 
         generalRectBackground = ConstantsFunc.decodeSampledBitmapFromResource(PUBLIC_VAR.CURRENT_CONTEXT.getResources(), R.drawable.game_over_background, generalRect.width(), generalRect.height());
         homeBitmap = ConstantsFunc.decodeSampledBitmapFromResource(PUBLIC_VAR.CURRENT_CONTEXT.getResources(), R.drawable.game_over_home, homeRect.width(), homeRect.height());
@@ -75,6 +77,7 @@ public class GamePlayScene implements Scene{
         obstacleManager.resetObstaclesManager();
         upgradesManager.restart();
         misslesManager.restart();
+        meteoritManager.restart();
         score = 0;
         gameOverPaint.setAlpha(5);
         player.setResetForPlayer(obstacleManager,playerPoint);
@@ -93,6 +96,7 @@ public class GamePlayScene implements Scene{
                 player.update();
                 upgradesManager.update();
                 misslesManager.update();
+                meteoritManager.update();
             }
         }
         else{
@@ -129,6 +133,7 @@ public class GamePlayScene implements Scene{
         player.draw(canvas);
         upgradesManager.draw(canvas);
         misslesManager.draw(canvas);
+        meteoritManager.draw(canvas);
         canvas.drawText("score : " + String.valueOf(score), PUBLIC_VAR.SCREEN_WIDTH/15, PUBLIC_VAR.SCREEN_HEIGHT/15, PUBLIC_VAR.textPaint);
         if(player.isDead()){
             if(gameOverPaint.getAlpha() < 255) gameOverPaint.setAlpha(gameOverPaint.getAlpha()+10);
