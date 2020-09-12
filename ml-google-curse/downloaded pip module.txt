@@ -1,0 +1,8 @@
+All programs downloaded with pip:
+
+- tensorflow
+- pandas
+- matplotlib
+- IPython
+- sklearn
+- 

@@ -1,0 +1,17 @@
+ca-app-pub-2776617747101162~3895232961
+
+banner:
+
+ca-app-pub-2776617747101162/2202538034
+
+app-key-store-password:
+Banana123!@#
+key-alias:
+key0
+key-password:
+Banana321#@!
+
+generate key:
+C:\Program Files\Java\jdk1.8.0_231\bin>keytool -genkey -v -keystore release.keystore -alias yourKeyAlias -keyalg RSA -keysize 2048 -validity 10000
+
+Payments Profile ID: 1891-2197-9500
